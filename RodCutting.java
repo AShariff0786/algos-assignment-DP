@@ -2,15 +2,39 @@
  * Rod cutting problem described in Chapter 15 of textbook
  */
 public class RodCutting {
+   int findMax(int x, int y) {
+      if(x>=y) {
+         return x;
+      }
+      else
+         return y;
+   }
 
   // Do not change the parameters!
   public int rodCuttingRecur(int rodLength, int[] lengthPrices) {
-    return 0;
+    if (rodLength == 0) {
+       return 0;
+    }
+    int max=-1;
+    for(int i=0; i<rodLength; i++) {
+       max= findMax(max, lengthPrices[i] + rodCuttingRecur((rodLength-(i+1)), lengthPrices));
+    }
+    return max;
   }
 
   // Do not change the parameters!
   public int rodCuttingBottomUp(int rodLength, int[] lengthPrices) {
-    return 0;
+    int[] tempArr = new int[lengthPrices.length+1];
+    tempArr[0]=0; //if the rodLength is 0, then this will return the price as 0
+    int max;
+    for(int i=1; i<=rodLength; i++) {
+       max=-1;
+       for(int j=0; j<i; j++) {
+          max= findMax(max, lengthPrices[j] + tempArr[i-(j+1)]);
+       }
+       tempArr[i]= max;
+    }
+    return tempArr[rodLength];
   }
 
 
