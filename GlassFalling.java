@@ -78,10 +78,10 @@ public class GlassFalling {
       // in your final turned-in copy, these are the only things printed
       int minTrials1Recur = gf.glassFallingRecur(27, 2);
       int minTrials1Bottom = gf.glassFallingBottomUp(27, 2);
-      //int minTrials2Recur = gf.glassFallingMemoized(100, 3);
-      //int minTrials2Bottom = gf.glassFallingBottomUp(100, 3);
+      int minTrials2Recur = gf.glassFallingRecur(100, 3);
+      int minTrials2Bottom = gf.glassFallingBottomUp(100, 3);
       System.out.println(minTrials1Recur + " " + minTrials1Bottom);
-      //System.out.println(minTrials2Recur + " " + minTrials2Bottom);
+      System.out.println(minTrials2Recur + " " + minTrials2Bottom);
   }
 }
 
