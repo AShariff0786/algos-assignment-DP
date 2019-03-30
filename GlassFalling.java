@@ -37,10 +37,27 @@ public class GlassFalling {
   // Pick whatever parameters you want to, just make sure to return an int.
   public int glassFallingMemoized(int floors, int sheets) {
     // Fill in here and change the return
-    int result;
-
-    return 0;
+    int [][] memoArr=new int[floors + 1][sheets+1]; 
+    int result = glassFallingMemoized(floors, sheets, memoArr);
+    return result;
   }  
+  
+  //Helper function for glassFallingMemoized
+  public int glassFallingMemoized(int floors, int sheets, int[][] memoArr) {
+     if (memoArr[floors][sheets] != 0)
+        return memoArr[floors][sheets];
+     if(floors <= 1 || sheets ==1) {
+        return floors;
+     }
+     memoArr[floors][sheets]= floors; //worst case of the minimum number of trial is trying each floor
+     int result;
+     for(int i=1; i<=floors; i++ ) {
+        result = findMax (glassFallingMemoized((i-1), (sheets-1), memoArr), glassFallingMemoized((floors-i), (sheets), memoArr)) + 1;
+        if(result < memoArr[floors][sheets])
+           memoArr[floors][sheets]=result;
+     }
+    return memoArr[floors][sheets]; 
+  }
   
   // Do not change the parameters!
   public int glassFallingBottomUp(int floors, int sheets) {
@@ -84,4 +101,3 @@ public class GlassFalling {
       System.out.println(minTrials2Recur + " " + minTrials2Bottom);
   }
 }
-
