@@ -22,6 +22,32 @@ public class RodCutting {
     return max;
   }
 
+   public int rodCuttingMemoized(int rodLength, int[] lengthPrices) {
+     int [] memoArr= new int[lengthPrices.length + 1];
+     for (int i=0; i<= lengthPrices.length; i++) {
+        memoArr[i]=-1;
+     }
+     return rodCuttingMemoized(rodLength, lengthPrices, memoArr);
+  }
+  
+  //Memoized helper function
+  public int rodCuttingMemoized(int rodLength, int[] lengthPrices, int[] memoArr) {
+     if (memoArr[rodLength] >= 0) {
+        return memoArr[rodLength];
+     }
+     if(rodLength == 0) {
+        return 0;
+     }
+     else {
+        int max=-1;
+        for(int i=0; i< rodLength; i++) {
+           max= findMax(max, lengthPrices[i] + rodCuttingMemoized((rodLength-(i+1)), lengthPrices, memoArr));
+        }
+        memoArr[rodLength] = max;
+        return max;
+     }
+  }
+   
   // Do not change the parameters!
   public int rodCuttingBottomUp(int rodLength, int[] lengthPrices) {
     int[] tempArr = new int[lengthPrices.length+1];
